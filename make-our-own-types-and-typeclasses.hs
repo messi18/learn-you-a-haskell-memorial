@@ -47,3 +47,14 @@ baseRectangle
 
     -- Pattern match always same as value constructor and record syntax
     tellCar (Car {company=c, model=m, year=y}) = "This " ++ c ++ " " ++ m ++ " is made in " ++ show y
+
+    -- type constructor
+    data Vector a = Vector a a a deriving (Show)
+    vplus :: (Num t) => Vector t -> Vector t -> Vector t
+    (Vector x y z) `vplus` (Vector x1 y1 z1) = Vector (x+x1) (y+y1) (z+z1)
+
+    vmulti :: (Num t) => Vector t -> t -> Vector t
+    (Vector x y z) `vmulti` d = Vector (x*d) (y*d) (z*d)
+
+    vscalar :: (Num t) => Vector t -> Vector t -> t
+    (Vector x y z) `vscalar` (Vector x1 y1 z1) = x*x1 + y*y1 + z*z1 
