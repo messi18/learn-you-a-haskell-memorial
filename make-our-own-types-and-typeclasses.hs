@@ -38,7 +38,7 @@ baseRectangle
     baseRectangle width height = Rectangle (Point 0 0) (Point width height)
 
     -- record syntax is more similar to Scala case class than normal data type
-    data Person = Person {firstName :: String, lastName :: String, age :: Int, height :: Float, phoneNumber :: String, flavor :: String} deriving (Show)
+    data Person = Person {firstName :: String, lastName :: String, age :: Int} deriving (Show,Eq,Read)
     data Car = Car {company :: String, model :: String, year :: Int} deriving (Show)
 
 
@@ -58,3 +58,17 @@ baseRectangle
 
     vscalar :: (Num t) => Vector t -> Vector t -> t
     (Vector x y z) `vscalar` (Vector x1 y1 z1) = x*x1 + y*y1 + z*z1 
+
+    -- Bounded and Enum type classes
+    data Day = Monday | Tuesday | Wednsday | Thursday | Friday | Saturday | Sunday deriving (Show,Eq,Enum,Bounded,Ord,Read)
+
+    -- type synonym. This is same as Scala just to create name alias.
+    type PhoneNumber = String
+    type Name = String
+    type PhoneBook = [(Name,PhoneNumber)]
+    phoneBook :: PhoneBook
+    phoneBook = [("lance","19089922"),("nn","123987673")]
+
+    inPhoneBook :: Name -> PhoneNumber -> PhoneBook -> Bool
+    inPhoneBook n p pb = (n,p) `elem` pb
+
