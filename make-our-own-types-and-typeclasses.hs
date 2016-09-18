@@ -72,3 +72,22 @@ baseRectangle
     inPhoneBook :: Name -> PhoneNumber -> PhoneBook -> Bool
     inPhoneBook n p pb = (n,p) `elem` pb
 
+
+    -- Tree
+    data Tree a = EmptyTree | Node a (Tree a) (Tree a) deriving(Show,Ord,Eq,Read)
+    singleton :: a -> Tree a
+    singleton a = Node a EmptyTree EmptyTree
+
+    treeInsert :: (Ord a) => a -> Tree a -> Tree a
+    treeInsert x EmptyTree = singleton x
+    treeInsert x (Node n l r)
+        | x == n = Node x l r
+        | x > n = Node n l (treeInsert x r)
+        | x < n = Node n (treeInsert x l) r
+
+    treeElem :: (Ord a) => a -> Tree a -> Bool
+    treeElem x EmptyTree = False
+    treeElem x (Node n l r)
+        | x == n = True
+        | x < n = treeElem x l
+        | x > n = treeElem x r
